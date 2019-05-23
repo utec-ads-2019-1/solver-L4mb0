@@ -49,7 +49,7 @@ public:
         listTheString(equation);
         colapseMasMenos(head);
         collapseNumbers(head);
-        treeTheList(head);
+        treeTheList(head, root);
         cout << operatePriorityFirst(root) << endl;
     }
 
@@ -138,16 +138,22 @@ public:
         }
     }
 
-    Node *treeTheList(Node *node) {
-        auto iterador = node;
-        while (iterador) {
-            if (iterador->data == isOperator(iterador->data)) {
-                node->data = iterador->data;
-                node->left->data = iterador->prev->data;
-                if (!iterador->next->next) { node->right->data = iterador->next->data; }
-                node->right = treeTheList(node->right);
-            } else iterador = iterador->next;
+    void treeTheList(Node* head, Node* root) {
+        auto listIterador = head;
+        auto treeIterador = root;
+        while(listIterador){
+            if(listIterador->next) {
+                treeIterador->left=listIterador;
+                listIterador=listIterador->next;
+                treeIterador = listIterador;
+            }
+            else {
+                treeIterador = listIterador;
+                break;
+            }
+            treeTheList(listIterador->next, treeIterador->right);
         }
+
     }
 
     string operatePriorityFirst(Node *root) {
