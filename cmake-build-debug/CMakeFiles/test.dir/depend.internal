@@ -3,7 +3,9 @@
 
 CMakeFiles/test.dir/main.cpp.o
  /home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/main.cpp
+ /home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/node.h
  /home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/operations/operation.h
+ /home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/solver.h
  /home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/tester/tester.h
 CMakeFiles/test.dir/operations/operation.cpp.o
  /home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/operations/operation.cpp

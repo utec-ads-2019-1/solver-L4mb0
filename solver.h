@@ -45,20 +45,32 @@ public:
         }
     }
 
+    void execute(string equation) {
+        listTheString(equation);
+        colapseMasMenos(head);
+        collapseNumbers(head);
+        treeTheList(head);
+        cout << operatePriorityFirst(root) << endl;
+    }
+
 
     void listTheString(string data) {
-        auto newNode = new Node(data);
-        if (!head) {
-            this->head = this->tail = newNode;
-        } else {
-            newNode->prev = this->tail;
-            this->tail->next = newNode;
-            this->tail = newNode;
-            newNode->next = nullptr;
+        for (int i = 0; i < data.length(); ++i) {
+            string temp = "";
+            temp.push_back(data[i]);
+            auto newNode = new Node(temp);
+            if (!head) {
+                this->head = this->tail = newNode;
+            } else {
+                newNode->prev = this->tail;
+                this->tail->next = newNode;
+                this->tail = newNode;
+                newNode->next = nullptr;
+            }
         }
     }
 
-    void colapseMasMenos() {
+    void colapseMasMenos(Node *head) {
         if (head) {
             Node *iterador = head;
             while (iterador) {
@@ -94,33 +106,33 @@ public:
                             delete sacrificio;
                         }
                     }
+                    if(iterador->next->data != isOperatorMasMenos(iterador->next->data)) iterador=iterador->next;
                 } else iterador = iterador->next;
             }
 
         } else throw out_of_range("no hay nada en la lista..");
     }
 
-    void collapseNumbers() {
+    void collapseNumbers(Node *head) {
+        int i=0;
         if (head) {
             string stringNumber;
             Node *iterador = head;
-            auto temp = new Node("");
-            auto newNode = new Node("");
+            auto temp = nullptr;
+            stringNumber += iterador->data;
+            iterador = iterador->next;
             while (iterador) {
-                if (iterador->data == isNumber(iterador->data)) {
-                    temp = iterador->prev;
-                    while (iterador->data == isNumber(iterador->data)) {
-                        stringNumber += iterador->data;
-                        iterador = iterador->next;
-                        delete iterador->prev;
-                    }
-                    newNode->data = stringNumber;
-                    iterador->prev = newNode;
-                    newNode->next = iterador;
-                    newNode->prev = temp;
-                    temp->next = newNode;
-                    stringNumber.clear();
+                while (iterador->data == isNumber(iterador->data)) {
+                    stringNumber += iterador->data;
+                    iterador->prev->next=iterador->next;
+                    iterador->next->prev=iterador->prev;
+                    iterador = iterador->next;
+                    delete iterador->prev;
                 }
+                iterador->prev->data = stringNumber;
+                stringNumber.clear();
+                iterador = iterador->next;
+                stringNumber += iterador->data;
                 iterador = iterador->next;
             }
         }
@@ -148,12 +160,13 @@ public:
                 string result = to_string(pow(stof(iterador->left->data), stof(iterador->right->left->data)));
                 iterador->right->left->data = result;
                 if (iterador == root) {
-                    iterador->right=root;
-                    delete iterador->left; delete iterador;
-                }
-                else {
-                    parent->right=iterador->right;
-                    delete iterador->left; delete iterador;
+                    iterador->right = root;
+                    delete iterador->left;
+                    delete iterador;
+                } else {
+                    parent->right = iterador->right;
+                    delete iterador->left;
+                    delete iterador;
 
                 }
             } else {
@@ -161,75 +174,75 @@ public:
                 iterador = iterador->right;
             }
         }
-        iterador=root;parent=root;
+        iterador = root;
+        parent = root;
 
 
         ///vuelta 1 busco multiplicacion y division
         while (iterador) {
             if (iterador->data == "*") {
-                string result = to_string(stof(iterador->left->data)*stof(iterador->right->left->data));
+                string result = to_string(stof(iterador->left->data) * stof(iterador->right->left->data));
                 iterador->right->left->data = result;
                 if (iterador == root) {
-                    iterador->right=root;
-                    delete iterador->left; delete iterador;
-                }
-                else {
-                    parent->right=iterador->right;
-                    delete iterador->left; delete iterador;
+                    iterador->right = root;
+                    delete iterador->left;
+                    delete iterador;
+                } else {
+                    parent->right = iterador->right;
+                    delete iterador->left;
+                    delete iterador;
 
                 }
-            }
-            else if(iterador->data=="/"){
-                string result = to_string(stof(iterador->left->data)/stof(iterador->right->left->data));
+            } else if (iterador->data == "/") {
+                string result = to_string(stof(iterador->left->data) / stof(iterador->right->left->data));
                 iterador->right->left->data = result;
                 if (iterador == root) {
-                    iterador->right=root;
-                    delete iterador->left; delete iterador;
-                }
-                else {
-                    parent->right=iterador->right;
-                    delete iterador->left; delete iterador;
+                    iterador->right = root;
+                    delete iterador->left;
+                    delete iterador;
+                } else {
+                    parent->right = iterador->right;
+                    delete iterador->left;
+                    delete iterador;
 
                 }
-            }
-
-            else {
+            } else {
                 parent = iterador;
                 iterador = iterador->right;
             }
         }
-        iterador=root;parent=root;
+        iterador = root;
+        parent = root;
 
         ///vuelta 2 busco sumas y restas
         while (iterador) {
             if (iterador->data == "+") {
-                string result = to_string(stof(iterador->left->data)+stof(iterador->right->left->data));
+                string result = to_string(stof(iterador->left->data) + stof(iterador->right->left->data));
                 iterador->right->left->data = result;
                 if (iterador == root) {
-                    iterador->right=root;
-                    delete iterador->left; delete iterador;
-                }
-                else {
-                    parent->right=iterador->right;
-                    delete iterador->left; delete iterador;
+                    iterador->right = root;
+                    delete iterador->left;
+                    delete iterador;
+                } else {
+                    parent->right = iterador->right;
+                    delete iterador->left;
+                    delete iterador;
 
                 }
-            }
-            else if(iterador->data=="-"){
-                string result = to_string(stof(iterador->left->data)-stof(iterador->right->left->data));
+            } else if (iterador->data == "-") {
+                string result = to_string(stof(iterador->left->data) - stof(iterador->right->left->data));
                 iterador->right->left->data = result;
                 if (iterador == root) {
-                    iterador->right=root;
-                    delete iterador->left; delete iterador;
-                }
-                else {
-                    parent->right=iterador->right;
-                    delete iterador->left; delete iterador;
+                    iterador->right = root;
+                    delete iterador->left;
+                    delete iterador;
+                } else {
+                    parent->right = iterador->right;
+                    delete iterador->left;
+                    delete iterador;
 
                 }
-            }
-
-            else {
+            } else {
                 parent = iterador;
                 iterador = iterador->right;
             }

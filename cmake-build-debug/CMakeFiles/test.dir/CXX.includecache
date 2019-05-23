@@ -11,18 +11,34 @@ iostream
 -
 tester/tester.h
 /home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/tester/tester.h
+solver.h
+/home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/solver.h
 
-/home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/operations/operation.cpp
-operation.h
-/home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/operations/operation.h
+/home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/node.h
+iostream
+-
 
 /home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/operations/operation.h
 string
 -
+cmath
+-
 
-/home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/tester/tester.cpp
-tester.h
-/home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/tester/tester.h
+/home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/solver.h
+string
+-
+map
+-
+cctype
+-
+vector
+-
+cmath
+-
+node.h
+/home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/node.h
+operations/operation.h
+/home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/operations/operation.h
 
 /home/l4mb0/Documents/tareas/ciclo5/AED/solver-L4mb0/tester/tester.h
 stdexcept

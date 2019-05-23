@@ -20,7 +20,7 @@ protected:
 public:
     friend class solver;
 
-    Node(basic_string<char> data){
+    Node(string data){
         left = right = nullptr;
         this->data = data;
     };
